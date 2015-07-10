@@ -473,7 +473,7 @@ Related talk: \href{http://europe.foss4g.org/2015/Program}%
 \begin{block}{\href{http://ncsu-osgeorel.github.io/erosion-modeling-tutorial/}%
   {Soil erosion and deposition modeling}}
   \footnotesize
-  Part of a broader project
+  Part of a broader project; workflows for GRASS GIS and ArcGIS
 \end{block}
 
 
@@ -519,12 +519,20 @@ Workshops are a way how to experiment with what to teach and how.
 % In labs and for assignments are software-dependent.
 
 \begin{itemize}
- \item students are becoming software users instead of scientists
+ \item students are becoming (only) software users instead of scientists
  \item students mix software details and general concepts
  \begin{itemize}
-  \item Shapefile or Feature class instead of Vector data
-  \item Generic (genericized) trademarks
- \end{itemize}
+  \item saying Shapefile or feature class instead of
+    \href{http://www.opengeospatial.org/ogc/glossary/v}{\emph{vector}} data
+    % http://www.opengeospatial.org/ogc/glossary/v
+    % http://www.opengeospatial.org/ogc/glossary/f
+    % http://www.opengeospatial.org/ogc/glossary/s
+    % http://www.opengeospatial.org/ogc/glossary/r
+  \item broad usage of
+    \href{https://en.wikipedia.org/wiki/Generic_trademark}{generic (genericized) trademarks}%
+%   \item never heard about raster data except for remote sensing context
+    \ldots
+\end{itemize}
  \item software promotes software/vendor-specific formats/technologies
  \begin{itemize}
   \item teachers end up using them
@@ -532,10 +540,10 @@ Workshops are a way how to experiment with what to teach and how.
  \end{itemize}
  \item single software choice limits explored algorithms
  \begin{itemize}
-  \item \emph{[Part of the assignment was already in] Surface Water Hydrology [class].
+  \item \color{gray}\emph{[Part of the assignment was already in] Surface Water Hydrology [class].
 In [that class] we used the D8 algorithm exclusively and focused on [...] ArcHydro.
 In this assignment it was interesting to see the use the Dinf
-algorithm which considers more direction choices [...]}
+algorithm which considers more direction choices [...]} \\\scriptsize (student's comment)
  \end{itemize}
 
 \end{itemize}
@@ -657,24 +665,27 @@ No, at least on of the used packages should be open source.
 \begin{frame}{GRASS GIS advantage for teaching materials maintenance}
 
 \begin{itemize}
- \item Screenshots are hard to update while text is easy to update.
  \item GRASS GIS workflow recorded as commands.
+ \begin{itemize}
+ \item Screenshots are hard to update while text is easy to update.
  \item GUI dialog filled according to the command.
- \scriptsize \item Commands can be automatically extracted and tested.
+ \item Commands can be automatically extracted and tested.
+ \end{itemize}
 \end{itemize}
 
 \bigskip
 % \bigskip
 
+\textcolor{gray!20}{\rule{\textwidth}{0.1em}}
 \includegraphics[width=\textwidth]{./images/edu/grass_cmd_gui}
 
 \bigskip
 \bigskip
 
-\small
+\scriptsize
 For ArcGIS we also use just text, but, unlike in GRASS GIS,
 the names in dialogs are not part of the API, so they change more often.
-{\scriptsize(Course running since 2008.)}
+{\tiny(Course running since 2008.)}
 
 \end{frame}
 
@@ -728,7 +739,7 @@ In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Standardized Sample Dataset}
+\begin{frame}[fragile]{Standardized Sample Datasets}
 
 \begin{itemize}
  \item other regions local datasets
@@ -761,8 +772,7 @@ r.relief input=elevation output=shade
 \begin{verbatim}
 d.shade shade=shade color=elevation
 \end{verbatim}
-\medskip
-\hfill
+\vfill\hfill\hfill
 \href{http://grasswiki.osgeo.org/wiki/GRASS_GIS_Standardized_Sample_Datasets}{%
 $\blacktriangleright$ wiki page}
 
@@ -838,12 +848,10 @@ Faculty of Civil Engineering
 \end{center}
 
 
-Markus Neteler and Luca Delucchi
-
-\bigskip
+Luca Delucchi and Markus Neteler
 
 {\scriptsize
-Research and Innovation Centre, Fondazione Edmund Mach, Italy
+\href{http://gis.cri.fmach.it/}{Research and Innovation Centre, Fondazione Edmund Mach, Italy}
 }
 
 \end{frame}
@@ -857,28 +865,45 @@ Research and Innovation Centre, Fondazione Edmund Mach, Italy
 
 Keren Cepero Perez
 
+{\scriptsize
+\href{http://www.meas.ncsu.edu/}%
+{Department of Marine, Earth, and Atmospheric Sciences,
+North Carolina State University, USA}
+}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{IPython Notebook}
+\begin{frame}{Future directions: IPython Notebook}
 
-For workshop:
+Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
 \begin{itemize}
  \item \url{https://github.com/wenzeslaus/python-grass-addon}
 \end{itemize}
 
 
+\begin{block}{Solution}
 \begin{itemize}
- \item IPython Notebook
- \item Docker
- \item GRASS GIS
+ \item Docker + GRASS GIS + IPython Notebook
+ \item Dockerfile:
  \begin{itemize}
   \item \url{https://github.com/wenzeslaus/grass-gis-docker}
  \end{itemize}
-
 \end{itemize}
+\end{block}
+
+\medskip
+
+\centering
+\begin{minipage}{0.7\textwidth}
+\begin{minipage}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{./images/logos/ipython}
+\vspace{0.1\textwidth}
+\includegraphics[width=\textwidth]{./images/logos/docker_dark}
+\end{minipage}
+\includegraphics[width=0.3\textwidth]{./images/logos/grass_gis}
+\end{minipage}
 
 \end{frame}
 
@@ -894,20 +919,26 @@ For workshop:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Future directions: Tools for open science course}
 
+\begin{overlayarea}{\textwidth}{\textheight}
+
 \begin{itemize}
+ \begingroup
+ \only<2>{\color{gray}}
  \item Course dedicated to
  \begin{itemize}
+  \only<2>{\color{gray}}
   \item exploring important role FOSS plays in science
   \item overview of tools and methods common in FOSS and desperately needed in science
   \item open access, open data, open standards, open...
   \item \emph{teach next generation of scientists}
  \end{itemize}
+ \endgroup
+
+ \only<2>{
  \item Possible topics:
  \begin{itemize}
-
  \item combining SW, e.g. QGIS + GRASS GIS + R + Inkscape
  \item Markdown, \LaTeX, Git, IPython Notebook, command line, plain text
-
  \item general features and common misconceptions
  \begin{itemize}
   \item vendor neutrality
@@ -918,27 +949,41 @@ For workshop:
     against open source from past
  \end{itemize}
  \item availability of tools even when not used by the university
- \item reusability, reproducability (std in FOSS)
+ \item reusability, reproducibility (std in FOSS)
 
 \end{itemize}
-
+}
 \end{itemize}
+
+\only<1>{
+
+\bigskip
+
+\centering
+\includegraphics[width=0.5\textwidth]{./images/general/open_up_book}%
+\\
+\tiny
+Image credit: \href{https://opensource.com/}{Opensource.com}
+
+}
+
+\end{overlayarea}
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Future directions}
+\begin{frame}{Future directions: Software, technologies and platforms}
 
 \begin{itemize}
- \item OpenStreetMap,
+ \item \href{http://openstreetmap.org/}{OpenStreetMap},
     \href{http://teachosm.org}{TeachOSM}, \href{http://learnosm.org}{LearnOSM}
  \begin{itemize}
   \item for introduction to geography or GIS
   \item as an example of community-based project
-  \item as data source
+  \item as data source in advanced courses
  \end{itemize}
- \item \href{http://mapstory.org/}{MapStory}
+ \item \href{http://mapstory.org/}{MapStory} {\scriptsize for student projects}
  \item \href{http://imincik.github.io/gis-lab/}{GIS.lab} {\scriptsize for easy lab setup}
  \item \href{http://jupyter.org/}{IPython/Jupyter},
     \href{https://github.com/jupyter/jupyterhub}{JupyterHub},
@@ -966,10 +1011,11 @@ For workshop:
 
 \end{block}
 
+\bigskip
 
 \centering
 \href{https://github.com/wenzeslaus/foss-in-geospatial-science-education}{%
-\includegraphics[width=0.3\textwidth]{./images/general/slides_qr}\\%
+\includegraphics[width=0.2\textwidth]{./images/general/slides_qr}\\%
 \texttt{github.com/wenzeslaus/foss-in-geospatial-science-education}%
 }
 
