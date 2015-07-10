@@ -6,6 +6,13 @@
 % ,handout,notes=show
 % ,aspectratio=169
 
+\makeatletter
+\def\beamer@framenotesbegin{% at beginning of slide
+  \gdef\beamer@noteitems{}%
+  \gdef\beamer@notes{{}}% used to be totally empty.
+}
+\makeatother
+
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}
 \usepackage[american]{babel}
@@ -25,11 +32,11 @@
 
 
 \ifnotes
-%\setbeamertemplate{note page}[plain]
-\setbeamertemplate{note page}[compress]
+\setbeamertemplate{note page}[plain]
+% \setbeamertemplate{note page}[compress]
 \setbeamerfont{note page}{size=\large}
 % \setbeameroption{show only notes}
-% \setbeameroption{show notes}
+\setbeameroption{show notes}
 \usepackage{pgfpages}
 \pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]%
 \else
@@ -846,13 +853,6 @@ $^*$\href{http://geomatics.fsv.cvut.cz/research/osgeorel/}%
 OSGeoREL
 at Czech Technical University in Prague,
 Faculty of Civil Engineering
-}
-
-
-\note{
-\begin{enumerate}
- \item 
-\end{enumerate}
 }
 
 \end{frame}
