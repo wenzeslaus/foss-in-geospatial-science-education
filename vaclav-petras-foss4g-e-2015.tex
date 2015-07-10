@@ -12,7 +12,6 @@
 \usepackage{graphicx}
 \usepackage{url}
 
-
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,spy,calc}
 
@@ -56,29 +55,40 @@
 % \useinnertheme{rectangles}
 \setbeamertemplate{blocks}[default]
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newcommand{\n}[1]{$^{\color{gray}{\mbox{\tiny#1}}}$}
+\newcommand{\n}[1]{$^{\textcolor{gray}{\mbox{\tiny{#1}}}}$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \title[FOSS4G in education]
 {Using Free and Open Source Solutions \mbox{in Geospatial Science Education}}
 \subtitle{How to make education better for science and future}
 %\pdforstring{}{}
 
 \author[Vaclav Petras]
-{Vaclav Petras (Vashek)\\
+{Vaclav Petras (Vashek)\n{1}\\
 {\scriptsize
-Anna Petrasova,
-Keren Cepero Perez,
-Markus Neteler,
+Anna Petrasova\n{1},
+Keren Cepero Perez\n{1},
+Markus Neteler\n{2},
 \mbox{
-Luca Delucchi,
-Martin Landa,
-Helena Mitasova
+Luca Delucchi\n{2},
+Martin Landa\n{3},
+Helena Mitasova\n{1}
 }
 }
 }
 
 \institute[NC State University]
-{North Carolina State University \\
-Fondazione Edmund Mach\\
-Czech Technical University in Prague and GISMentors
+{%
+$^1$North Carolina State University \\
+$^2$Fondazione Edmund Mach\\
+$^3$Czech Technical University in Prague and GISMentors
 % Center for Geospatial Analytics \\
 }
 
@@ -110,13 +120,6 @@ Czech Technical University in Prague and GISMentors
   \addtocounter{framenumber}{\value{framenumbervorappendix}}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\n}[1]{$^{\color{gray}{\mbox{\tiny#1}}}$}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,12 +143,6 @@ Czech Technical University in Prague and GISMentors
 \includecclogo{sa}
 }
 \end{center}
-
-\note{
-\begin{enumerate}
-    \item 
-\end{enumerate}
-}
 }
 
 \newcommand{\quoteTitle}[3]{%
@@ -159,8 +156,6 @@ Czech Technical University in Prague and GISMentors
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Free and open source software}
-
-% TODO: this is industry, mention science somewhere
 
 \quoteTitle{Open Source Software Is Now a Norm in Businesses}%
   {Katherine Noyes, PCWorld, May 18, 2011}%
