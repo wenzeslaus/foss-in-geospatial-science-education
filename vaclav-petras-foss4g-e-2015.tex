@@ -74,7 +74,7 @@
 
 \title[FOSS4G in education]
 {Using Free and Open Source Solutions \mbox{in Geospatial Science Education}}
-\subtitle{How to make education better for science and future}
+\subtitle{Tools and ideas for better geospatial science education}
 %\pdforstring{}{}
 
 \author[Vaclav Petras]
@@ -461,42 +461,6 @@ Related talk: \href{http://europe.foss4g.org/2015/Program}%
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{NCSU OSGeoREL workshops and tutorials}
-
-\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-intro-workshop/}%
-  {Introduction to GRASS GIS}}
-  \footnotesize
-  Delivered at NCSU
-\end{block}
-
-\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-temporal-workshop/}%
-  {Spatio-temporal data handling and visualization in GRASS GIS}}
-  \footnotesize
-  FOSS4G 2014 (Portland) workshop, also delivered at NCSU
-\end{block}
-
-
-\begin{block}{\href{http://ncsu-osgeorel.github.io/erosion-modeling-tutorial/}%
-  {Soil erosion and deposition modeling}}
-  \footnotesize
-  Part of a broader project; workflows for GRASS GIS and ArcGIS
-\end{block}
-
-
-\begin{block}{\href{https://github.com/wenzeslaus/python-grass-addon}%
-  {How to write a Python GRASS GIS 7 addon}}
-  \footnotesize
-  FOSS4G Europe 2015 (Como) workshop, also delivered at NCSU
-\end{block}
-
-\bigskip
-\footnotesize
-Workshops are a way how to experiment with what to teach and how.
-
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The idea}
 
@@ -547,28 +511,16 @@ Image credit: \href{https://openclipart.org}{Openclipart}
  \item students mix software details and general concepts
  \begin{itemize}
   \item saying Shapefile or feature class instead of
-    \href{http://www.opengeospatial.org/ogc/glossary/v}{\emph{vector}} data
+    \href{http://www.opengeospatial.org/ogc/glossary/v}{\emph{vector}} data%
     % http://www.opengeospatial.org/ogc/glossary/v
     % http://www.opengeospatial.org/ogc/glossary/f
     % http://www.opengeospatial.org/ogc/glossary/s
     % http://www.opengeospatial.org/ogc/glossary/r
-  \item broad usage of
-    \href{https://en.wikipedia.org/wiki/Generic_trademark}{generic (genericized) trademarks}%
-%   \item never heard about raster data except for remote sensing context
     \ldots
 \end{itemize}
+ \item bonding with software limits flexibility
  \item software promotes software/vendor-specific formats/technologies
- \begin{itemize}
-  \item teachers end up using them
-  \item and students end up knowing just them
- \end{itemize}
  \item single software choice limits explored algorithms
- \begin{itemize}
-  \item \color{gray}\emph{[Part of the assignment was already in] Surface Water Hydrology [class].
-In [that class] we used the D8 algorithm exclusively and focused on [...] ArcHydro.
-In this assignment it was interesting to see the use the Dinf
-algorithm which considers more direction choices [...]} \\\scriptsize (student's comment)
- \end{itemize}
 
 \end{itemize}
 
@@ -603,48 +555,6 @@ algorithm which considers more direction choices [...]} \\\scriptsize (student's
 \end{itemize}
 
 \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Can I use two open source packages?}
-
-Yes, just select different-enough packages.
-
-\bigskip
-
-No:
-\begin{itemize}
- \item GRASS GIS + QGIS with GRASS plugin % {\scriptsize (great 3rd option in our case)}
-\end{itemize}
-
-
-Yes:
-\begin{itemize}
- \item GRASS GIS + QGIS with SAGA algorithms in Processing
-\end{itemize}
-
-Maybe:
-\begin{itemize}
- \item QGIS with GRASS plugin + R with spgrass6/rgrass7
-\end{itemize}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Can I use two proprietary packages?}
-
-No, at least on of the used packages should be open source.
-
-\begin{itemize}
- \item teaching for future industry, not past
- \item teaching for science
- \item \ldots
-\end{itemize}
-
-
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -768,8 +678,7 @@ In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
 \begin{frame}[fragile]{Standardized Sample Datasets}
 
 \begin{itemize}
- \item other regions local datasets
- \item limits sharing of hands-on teaching material
+ \item region specific datasets limit sharing of hands-on teaching material
  \item new version of North Carolina
  \begin{itemize}
   \item commonly available data, frequently used in examples
@@ -777,6 +686,7 @@ In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
   \begin{itemize}
    \item rather than \textit{srtm}, \textit{dem\_10m}, \textit{streets\_como}
   \end{itemize}
+ \item different can use the same names
  \end{itemize}
  \item challenges:
  \begin{itemize}
@@ -926,6 +836,43 @@ Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{NCSU OSGeoREL workshops and tutorials}
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-intro-workshop/}%
+  {Introduction to GRASS GIS}}
+  \footnotesize
+  Delivered at NCSU
+\end{block}
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-temporal-workshop/}%
+  {Spatio-temporal data handling and visualization in GRASS GIS}}
+  \footnotesize
+  FOSS4G 2014 (Portland) workshop, also delivered at NCSU
+\end{block}
+
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/erosion-modeling-tutorial/}%
+  {Soil erosion and deposition modeling}}
+  \footnotesize
+  Part of a broader project; workflows for GRASS GIS and ArcGIS
+\end{block}
+
+
+\begin{block}{\href{https://github.com/wenzeslaus/python-grass-addon}%
+  {How to write a Python GRASS GIS 7 addon}}
+  \footnotesize
+  FOSS4G Europe 2015 (Como) workshop, also delivered at NCSU
+\end{block}
+
+\bigskip
+% \footnotesize
+\alert{Workshops are a way how to experiment with what to teach and how.}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{Future directions: Educate educators}
 % 
@@ -941,37 +888,13 @@ Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
 \begin{overlayarea}{\textwidth}{\textheight}
 
 \begin{itemize}
- \begingroup
- \only<2>{\color{gray}}
  \item Course dedicated to
  \begin{itemize}
-  \only<2>{\color{gray}}
   \item exploring important role FOSS plays in science
   \item overview of tools and methods common in FOSS and desperately needed in science
   \item open access, open data, open standards, open...
-  \item \emph{teach next generation of scientists}
+  \item reusability and reproducibility are standard in FOSS
  \end{itemize}
- \endgroup
-
- \only<2>{
- \item Possible topics:
- \begin{itemize}
- \item combining software, e.g. QGIS + GRASS GIS + R + Inkscape
- \item Markdown, \LaTeX, Git, IPython Notebook, command line, plain text
- \item general features and common misconceptions
- \begin{itemize}
-  \item vendor neutrality
-  \item using open source versus writing code
-  \item community and support
-  \item gratis versus libre
-  \item counteracting \href{https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt}{FUD}
-    against open source from past
- \end{itemize}
- \item availability of tools even when not used by the university
- \item reusability, reproducibility (standard in FOSS, idea only in science)
-
-\end{itemize}
-}
 \end{itemize}
 
 \only<1>{
@@ -1024,8 +947,8 @@ Image credit: \href{https://opensource.com/}{Opensource.com}
 \begin{block}{Summary}
  \begin{itemize}
   \item improve geospatial skills by teaching 2 software packages
-  \item simple edu material format with GRASS GIS, Git and HTML
-  \item new datasets for portable edu materials
+  \item use edu material format with Git and HTML
+  \item create a standardized dataset for your region
  \end{itemize}
 
 \end{block}
@@ -1037,10 +960,6 @@ Image credit: \href{https://opensource.com/}{Opensource.com}
 \includegraphics[width=0.2\textwidth]{./images/general/slides_qr}\\%
 \texttt{github.com/wenzeslaus/foss-in-geospatial-science-education}%
 }
-
-\bigskip
-
-Thank you for your attention.
 
 \end{frame}
 
