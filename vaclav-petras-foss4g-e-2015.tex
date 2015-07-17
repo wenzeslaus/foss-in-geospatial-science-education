@@ -297,7 +297,7 @@ $^3$Czech Technical University in Prague and GISMentors
 \bigskip
 
 \centering
-\includegraphics[width=0.5\textwidth]{./images/general/open_science}%
+\includegraphics[height=0.4\textheight]{./images/general/open_science}%
 \\
 \tiny
 Image credit: \href{https://opensource.com/}{Opensource.com}
@@ -371,12 +371,12 @@ Listing only geospatial courses where presentation authors are involved.
 %  \item half of the course led by students% (supported by instructor)
  \item curriculum depends on students projects
  \item new technologies:
-  \begin{itemize}
-   \item eye tracking
-   \item \href{http://geospatial.ncsu.edu/osgeorel/tangible-landscape.html}{Tangible Landscape}
-   \item \href{https://www.lib.ncsu.edu/spaces/teaching-and-visualization-lab}%
-           {NCSU Hunt Lib Teaching and Vis Lab}
-  \end{itemize}
+   \href{http://geospatial.ncsu.edu/osgeorel/tangible-landscape.html}%
+   {Tangible Landscape},
+   \href{https://www.lib.ncsu.edu/spaces/teaching-and-visualization-lab}%
+           {NCSU Hunt Lib Teaching and Vis Lab},
+   eye tracking
+
 \end{itemize}
 
 \end{block}
@@ -384,7 +384,7 @@ Listing only geospatial courses where presentation authors are involved.
 \column{.3\textwidth}
 
 \href{https://www.youtube.com/channel/UCc37pVh-WE46Xkqeq-KZQsA}{%
-\includegraphics[width=\textwidth]{./images/edu/tangible}%
+\includegraphics[height=0.65\textheight]{./images/edu/tangible}%
 }
 
 \end{columns}
@@ -452,7 +452,7 @@ Related talk: \href{http://europe.foss4g.org/2015/Program}%
 \begin{columns}[c]
 
 \column{.45\textwidth}
-\includegraphics[height=0.5\textheight]{./images/edu/erosion}
+\includegraphics[height=0.5\textheight]{./images/edu/dem}
 \column{.45\textwidth}
 \hspace{0.2\textwidth}
 \rotatebox{-90}{\includegraphics[width=0.5\textheight]{./images/edu/uav}}
@@ -609,14 +609,17 @@ Image credit: \href{https://openclipart.org}{Openclipart}
  \end{itemize}
 \end{itemize}
 
-\bigskip
 % \bigskip
+% \bigskip
+\begin{center}
+\colorbox{gray!20}{
+\includegraphics[height=0.5\textheight]{./images/edu/grass_cmd_gui}
+}
+\end{center}
 
-\textcolor{gray!20}{\rule{\textwidth}{0.1em}}
-\includegraphics[width=\textwidth]{./images/edu/grass_cmd_gui}
 
-\bigskip
-\bigskip
+% \bigskip
+% \bigskip
 
 \scriptsize
 For ArcGIS we also use just text, but, unlike in GRASS GIS,
@@ -686,8 +689,8 @@ In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
   \begin{itemize}
    \item rather than \textit{srtm}, \textit{dem\_10m}, \textit{streets\_como}
   \end{itemize}
- \item different can use the same names
  \end{itemize}
+ \item \alert{different datasets should use the same standardized names}
  \item challenges:
  \begin{itemize}
   \item attributes, coordinates, values, extents, resolutions
@@ -695,7 +698,7 @@ In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
 
 \end{itemize}
 
-\bigskip
+\smallskip
 
 \begin{columns}[c]
 
@@ -822,10 +825,8 @@ Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
 \end{itemize}
 \end{block}
 
-\medskip
-
 \centering
-\begin{minipage}{0.7\textwidth}
+\begin{minipage}{0.6\textwidth}
 \begin{minipage}[b]{0.45\textwidth}
 \includegraphics[width=\textwidth]{./images/logos/ipython}
 \vspace{0.1\textwidth}
@@ -897,17 +898,14 @@ Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
  \end{itemize}
 \end{itemize}
 
-\only<1>{
-
-\bigskip
+\smallskip
 
 \centering
-\includegraphics[width=0.5\textwidth]{./images/general/open_up_book}%
+\includegraphics[height=0.5\textheight]{./images/general/open_up_book}%
 \\
 \tiny
 Image credit: \href{https://opensource.com/}{Opensource.com}
 
-}
 
 \end{overlayarea}
 
@@ -933,8 +931,8 @@ Image credit: \href{https://opensource.com/}{Opensource.com}
  \item
     desktop to browser:
     \href{https://developer.gnome.org/gtk3/stable/gtk-broadway.html}{GTK+ Broadway},
-    \href{https://kanaka.github.io/noVNC/}{noVNC},
-    \href{https://www.rollapp.com/}{rollApp}
+    \href{https://kanaka.github.io/noVNC/}{noVNC}
+    {\tiny (to get something like \href{https://www.rollapp.com/}{rollApp})}
  \item web-based tool to explore algorithm behavior in teaching materials
  \item link teaching materials, standard user manual and the source code
 \end{itemize}
@@ -946,9 +944,12 @@ Image credit: \href{https://opensource.com/}{Opensource.com}
 
 \begin{block}{Summary}
  \begin{itemize}
-  \item improve geospatial skills by teaching 2 software packages
-  \item use edu material format with Git and HTML
-  \item create a standardized dataset for your region
+  \item \href{http://dx.doi.org/10.3390/ijgi4020942}%
+    {improve students' geospatial skills by teaching 2 software packages}
+  \item \href{http://dx.doi.org/10.3390/ijgi4020942}%
+    {use available tools like Git and HTML to create teaching materials}
+  \item \href{http://grasswiki.osgeo.org/wiki/GRASS_GIS_Standardized_Sample_Datasets}%
+    {create a dataset with standardized names for your region}
  \end{itemize}
 
 \end{block}
