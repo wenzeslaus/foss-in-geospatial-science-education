@@ -1,0 +1,1031 @@
+% Using Free and Open Source Solutions in Geospatial Science Education
+% This work by Vaclav Petras is licensed under
+% a Creative Commons Attribution-ShareAlike 4.0 International License.
+
+\documentclass[xcolor={dvipsnames,usenames},beamer,aspectratio=169]{beamer}
+% ,handout,notes=show
+% ,aspectratio=169
+
+\makeatletter
+\def\beamer@framenotesbegin{% at beginning of slide
+  \gdef\beamer@noteitems{}%
+  \gdef\beamer@notes{{}}% used to be totally empty.
+}
+\makeatother
+
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage{graphicx}
+\usepackage{url}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,spy,calc}
+
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+
+% frames have to be fragile
+\newif\ifnotes
+% \input{tmpnotessettings}
+% \notestrue
+
+
+\ifnotes
+\setbeamertemplate{note page}[plain]
+% \setbeamertemplate{note page}[compress]
+\setbeamerfont{note page}{size=\large}
+% \setbeameroption{show only notes}
+\setbeameroption{show notes}
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]%
+\else
+%\setbeameroption{hide notes}
+\fi
+%\notesfalse
+
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{listings}
+
+
+\usepackage{pgfplots}
+
+% \usetheme{Warsaw}
+\usetheme{Madrid}
+% \usetheme{Frankfurt}
+% \useoutertheme{infolines}
+\usecolortheme[named=MidnightBlue]{structure}
+% \usecolortheme[named=PineGreen]{structure}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+% \useinnertheme{rectangles}
+\setbeamertemplate{blocks}[default]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newcommand{\n}[1]{$^{\color{gray}{\mbox{\tiny#1}}}$}
+\newcommand{\n}[1]{$^{\textcolor{gray}{\mbox{\tiny{#1}}}}$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title
+{Integrating open into geo-education}
+\subtitle{Heading towards a better geospatial education}
+%\pdforstring{}{}
+
+\author[Vaclav Petras]
+{Vaclav Petras (Vashek)
+}
+
+\institute[NC State University]
+{%
+North Carolina State University
+}
+
+\date[State of the Map US 2017]{October 20th to 22nd, 2017\\
+  \href{https://2017.stateofthemap.us/}{State of the Map US}\\
+  Boulder, Colorado}
+
+\setbeamercovered{transparent}
+
+\hypersetup{%
+ pdfauthor={Vaclav Petras},%
+ pdfsubject={State of the Map US 2017},%
+ pdfkeywords={sample data} {teaching} {open source} {free software} {open science}
+   {open education} {geospatial modeling} {GRASS GIS}
+}
+
+\newcommand{\overovaciref}[1]{{\scriptsize(\ref{#1})}}
+
+
+\usepackage{tipa}
+\newcommand{\pron}[2]{#1 [#2]}
+
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\newcommand{\logowidth}{1.0em}
+\newcommand{\logospace}{\hspace{0.2em}}
+\newcommand{\includecclogo}[1]{\includegraphics[width=\logowidth]{./images/logos/#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+\titlepage
+\begin{center}
+\href{http://creativecommons.org/licenses/by-sa/4.0/}{
+\includecclogo{cc}
+\logospace
+\includecclogo{by}
+\logospace
+\includecclogo{sa}
+}
+\end{center}
+}
+
+\newcommand{\quoteTitle}[3]{%
+  \href{#3}%
+    {\emph{#1}\\%
+    \hfill%
+    {\footnotesize#2}%
+    \smallskip}%
+  }
+\newcommand{\quoteText}[3]{\quoteTitle{#1}{#2}{#3}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Who I'm and a disclaimer}
+
+\begin{block}{Vaclav (Vashek) Petras}
+\begin{itemize}
+ \item GRASS GIS Developer and Project Steering Committee Member
+ \item North Carolina State University Student
+ \item OSGeo Charter Member
+ \item NCSU GeoForAll Lab Member
+\end{itemize}
+\end{block}
+
+\begin{block}{Contact}
+\begin{tabular}{rl}
+ Homepage: &\href{https://wenzeslaus.github.io}{\texttt{wenzeslaus.github.io}}
+ \\
+ GitHub: &\texttt{wenzeslaus}
+ \\
+ Twitter: &\texttt{@vaclavpetras}
+\end{tabular}
+\end{block}
+
+\begin{block}{Disclaimer}
+Speaking for myself, not North Carolina State University.
+\end{block}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Open in industry}
+
+\begin{block}{Open source software is a norm}
+
+\quoteTitle{Open Source Software Is Now a Norm in Businesses}%
+  {Katherine Noyes, PCWorld, May 18, 2011}%
+  {http://www.pcworld.com/article/228136/open_source_software_now_a_norm_in_businesses.html}
+
+\quoteTitle{Open Sourcing Is No Longer Optional, Not Even for Apple}%
+  {Klint Finley, WIRED, June 9, 2015}%
+  {http://www.wired.com/2015/06/open-sourcing-no-longer-optional-not-even-apple/}
+
+\end{block}
+
+\begin{block}{Opening even more?}
+
+\quoteTitle{Red Hat CEO: Here's how to create an 'Open Organization'}%
+  {Matt Asay, InfoWorld, May 28, 2015}%
+  {https://www.infoworld.com/article/2927573/open-source-software/red-hat-ceo-heres-how-you-can-foster-an-open-organization.html}
+% In a brand-new book, Red Hat CEO Jim Whitehurst explains what he's learned from leading the largest open source company and how the lessons can be applied
+
+\end{block}
+
+\centering
+\includegraphics[height=0.2\textheight]{./images/general/growing}%
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Open in science}
+
+% science
+\quoteText{Software [...] developed as part of novel methods is as 
+    important for the method's implementation [...]
+    Such software [...] must be made available to readers upon publication.}
+  {Social software, Nature Methods 4, 189, 2007}%
+  {http://www.nature.com/nmeth/journal/v4/n3/full/nmeth0307-189.html}
+% Software that is custom-developed as part of novel methods is as important
+% for the method's implementation as reagents and protocols.
+% Such software, or the underlying algorithms, must be made available to readers upon publication.
+
+% continuation article: http://www.nature.com/nmeth/journal/v11/n3/full/nmeth.2880.html
+% The usefulness of computational methods can be improved by releasing code and designing software
+% that supports reproducible research.
+% An open implementation that supports reproducible research not only provides confidence
+% in the performance of a method but increases the likelihood
+% that other researchers can use and build upon it.
+
+% derived artile: http://opensource.com/life/14/6/respected-journal-makes-transition-open-science
+
+% edu
+\quoteText{The opposite of ‘open’ isn’t closed. The opposite of open is ‘broken.’}%
+  {Cable Green (quoting John Wilbanks) at Open Scotland Summit 2013}
+  {https://openscot.wordpress.com/2013/10/09/open-scotland-report-and-actions/}
+% John Wilbanks and cited by Cable Green, The Obviousness of Open Policy:
+% https://ronmader.wordpress.com/2012/09/06/open/
+% Cable Green, at Open Scotland Summit, Open Scotland Report and Actions, July 4, 2013:
+% https://openscot.wordpress.com/2013/10/09/open-scotland-report-and-actions/
+
+\bigskip
+\bigskip
+
+\centering
+\includegraphics[height=0.4\textheight]{./images/general/open_science}%
+\\
+\tiny
+Image credit: \href{https://opensource.com/}{Opensource.com}
+
+
+\end{frame}
+
+
+\newcommand{\coursesTitle}{North Carolina State University}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle}
+
+\begin{columns}[c]
+
+\column{.55\textwidth}
+
+\begin{block}{\href{http://courses.ncsu.edu/gis582/common/}%
+  {Geospatial Analysis and Modeling}}
+\begin{itemize}
+ \item started in 2008
+ \item on-campus and distance education
+ \item every semester 30-60 students
+ \item software:
+ \begin{itemize}
+   \item \href{http://grass.osgeo.org}{GRASS GIS}
+   \item ArcGIS
+ \end{itemize}
+ \item workflow for software provided
+ \item students write reports with general theory and methods
+\end{itemize}
+\end{block}
+
+\column{.40\textwidth}
+
+\includegraphics[width=\textwidth]{./images/edu/secref}%
+
+\end{columns}
+
+\bigskip
+
+Listing only geospatial courses where presentation authors are involved.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle}
+
+\begin{columns}[c]
+
+\column{.65\textwidth}
+
+\begin{block}{\href{http://courses.ncsu.edu/mea592/common/}%
+  {Multidimensional Geospatial Modeling}}
+
+\begin{itemize}
+ \item software:
+ \begin{itemize}
+   \item \href{http://grass.osgeo.org}{GRASS GIS}
+   {\scriptsize
+    often with new features such as
+    \href{http://grass.osgeo.org/grass70/manuals/temporalintro.html}{Temporal Framework}
+    (\href{http://grass.osgeo.org/grass7/}{GRASS GIS 7})
+   }
+  \item + whatever the students need, e.g.~%
+    \href{http://oss.deltares.nl/web/xbeach/}{XBeach}, \href{http://www.liblas.org/}{libLAS}
+    or LAStools
+ \end{itemize}
+
+%  \item PhD students and highly skilled MS students
+%  \item half of the course led by students% (supported by instructor)
+ \item curriculum depends on students projects
+ \item new technologies:
+   \href{http://geospatial.ncsu.edu/osgeorel/tangible-landscape.html}%
+   {Tangible Landscape},
+   \href{https://www.lib.ncsu.edu/spaces/teaching-and-visualization-lab}%
+           {NCSU Hunt Lib Teaching and Vis Lab},
+   eye tracking
+
+\end{itemize}
+
+\end{block}
+
+\column{.3\textwidth}
+
+\href{https://www.youtube.com/channel/UCc37pVh-WE46Xkqeq-KZQsA}{%
+\includegraphics[height=0.65\textheight]{./images/edu/tangible}%
+}
+
+\end{columns}
+
+\href{https://www.lib.ncsu.edu/stories/large-scale-visualization-geospatial-data}{%
+\includegraphics[width=\textwidth]{./images/edu/hunt_vis}%
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle}
+
+
+\begin{columns}[c]
+
+\column{.65\textwidth}
+
+\begin{block}{\href{http://courses.ncsu.edu/lar582/common/}%
+  {GIS for Designers}}
+\begin{itemize}
+ \item software in class:
+ \begin{itemize}
+  \item ArcGIS
+  \item GRASS GIS
+  \item Rhino (Rhinoceros)
+ \end{itemize}
+ \item for projects architects and designers combine a lot of tools
+ \begin{itemize}
+  \item \href{http://geospatial.ncsu.edu/osgeorel/tangible-landscape.html}{Tangible Landscape}
+    (powered by GRASS GIS) was one of them
+ \end{itemize}
+
+\end{itemize}
+
+\end{block}
+
+\column{.3\textwidth}
+
+\href{https://www.lib.ncsu.edu/stories/re-imagining-lake-raleigh-woods}{%
+\includegraphics[width=\textwidth]{./images/edu/designers}%
+}
+
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle}
+
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/uav-lidar-analytics-course/}%
+  {UAV/lidar Data Analytics}}
+\begin{itemize}
+ \item under development for this fall semester
+ \item Agisoft PhotoScan in class, \href{http://opendronemap.org/}{OpenDroneMap} in projects
+\end{itemize}
+
+Related talk: \href{http://europe.foss4g.org/2015/Program}%
+                 {Flow analysis using sUAS and lidar data (Helena Mitasova)}
+%, Day 3, July 17th, 3:15 PM)
+
+\end{block}
+
+\begin{columns}[c]
+
+\column{.45\textwidth}
+\includegraphics[height=0.5\textheight]{./images/edu/dem}
+\column{.45\textwidth}
+\hspace{0.2\textwidth}
+\rotatebox{-90}{\includegraphics[width=0.5\textheight]{./images/edu/uav}}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle: Course descriptions}
+
+
+% \url{https://cnr.ncsu.edu/geospatial/academics/courses/}
+
+% old
+% https://web.archive.org/web/20160108192830/https://cnr.ncsu.edu/geospatial/education/courses/
+% 12 std curses
+% 1 mentions open and 1 mentions specific open but at the same time both particular proprietary
+% 7 proprietary from a single vendor
+% two other sw from diff vendor are mentioned MS SQL Server and Oracle
+% 1 mentions Python (coupled with proprietary)
+% -> more than half (7/12) of the courses explicitly mentions software from a single vendor
+% -> one third (3/12) mentions different software, from that one is Python and two other Oracle and MS SQL Server
+% -> the same three mention some open source software, from that one is Python, one is GRASS GIS, and one is general mention of open source software
+% -> the same three at the same time make use of proprietary software
+% -> 12 courses, 7 mention software, 7 mention proprietary sw, 3 some open source, 1 field specific (relevant) software, 0 open without using proprietary
+
+% new
+% https://web.archive.org/web/20171011010652/https://cnr.ncsu.edu/geospatial/academics/courses/
+% 12 course
+% 2 software, 1 proprietary, 1 some open (Python), 0 field specific (relevant) software, 0* open without using proprietary
+
+\pgfplotstableread[row sep=\\,col sep=&]{
+    val & old & new \\
+    courses     & 12 & 12 \\
+    mentions software     & 7 & 2 \\
+    proprietary    & 7 & 1 \\
+    some open & 3 & 1 \\
+    field specific open  & 1 & 0  \\
+    open only  & 0 & 0 \\
+    }\mydata
+
+% red - blue
+% \definecolor{old}{HTML}{C0504D}
+% \definecolor{new}{HTML}{4F81BD}
+
+% viridis
+% \definecolor{old}{HTML}{404186}
+% \definecolor{new}{HTML}{6ACD5A}
+
+% plasma
+% \definecolor{old}{HTML}{16068A}
+% \definecolor{new}{HTML}{FCA834}
+
+% magma
+% \definecolor{old}{HTML}{360F6B}
+% \definecolor{new}{HTML}{F56C5B}
+
+\definecolor{old}{HTML}{595959}
+\definecolor{new}{HTML}{7CCD7C}
+
+Mentions of software in the course description.*
+
+\begin{tikzpicture}
+    \begin{axis}[
+            xbar,
+            symbolic y coords={open only, field specific open,some open, proprietary,mentions software,courses},
+            ytick=data,
+            nodes near coords,
+            legend pos=south east,
+            reverse legend,
+        ]
+        \addplot+[fill=new,color=new] table[y=val,x=new]{\mydata};
+        \addlegendentry{2017}
+        \addplot+[fill=old,color=old] table[y=val,x=old]{\mydata};
+        \addlegendentry{2016}
+
+    \end{axis}
+\end{tikzpicture}
+
+*There are just short descriptions, not the actual course content.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\coursesTitle: New PhD courses}
+
+
+\begin{block}{\href{https://cnr.ncsu.edu/geospatial/academics/phd-in-geospatial-analytics/}%
+  {Ph.D. in Geospatial Analytics}}
+\begin{itemize}
+ \item GIS 711: Geospatial Data Management:
+...Applied experience in the architecture of geospatial data management \textbf{including open source options}...
+
+\item GIS 715: Geovisualization:
+...This course provides a systematic framework of visualization design principles based on the human visual system and \textbf{explores open-source geospatial data visualization tools}...
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The idea}
+
+\begin{columns}[c]
+
+\column{.45\textwidth}
+
+\begin{itemize}
+ \item lectures:
+ \begin{itemize}
+  \item theory, concepts
+  \item software-independent
+ \end{itemize}
+ \item labs and assignments:
+ \begin{itemize}
+  \item relate to given lecture
+  \item hands-on, practical
+  \item students use software
+%   \item software-dependent
+ \end{itemize}
+\end{itemize}
+
+\column{.45\textwidth}
+
+\bigskip
+
+\centering
+\includegraphics[width=0.5\textwidth]{./images/general/bulp}%
+\\
+\tiny
+\color{gray}
+Image credit: \href{https://openclipart.org}{Openclipart}
+
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The problem}
+
+% Students use software in labs and for assignments.
+
+% In labs and for assignments are software-dependent.
+
+\begin{itemize}
+ \item students are becoming (only) software users instead of scientists
+ \item students mix software details and general concepts
+ \begin{itemize}
+  \item saying Shapefile or feature class instead of
+    \href{http://www.opengeospatial.org/ogc/glossary/v}{\emph{vector}} data%
+    % http://www.opengeospatial.org/ogc/glossary/v
+    % http://www.opengeospatial.org/ogc/glossary/f
+    % http://www.opengeospatial.org/ogc/glossary/s
+    % http://www.opengeospatial.org/ogc/glossary/r
+    \ldots
+\end{itemize}
+ \item bonding with software limits flexibility
+ \item software promotes software/vendor-specific formats/technologies
+ \item single software choice limits explored algorithms
+
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The solution}
+
+\begin{itemize}
+ \item lectures:
+ \begin{itemize}
+  \item theory, concepts
+  \item software-independent
+ \end{itemize}
+ \item labs and assignments:
+ \begin{itemize}
+  \item relate to given lecture
+  \item hands-on, practical
+  \item \alert<1>{students use two different software packages}\pause, in our case:
+  \begin{itemize}
+   \item GRASS GIS (free and open source)
+   \item ArcGIS (proprietary)
+  \end{itemize}
+ \end{itemize}
+  \pause
+  \item similar task in both
+%   \item students see two different examples of one workflow
+  \item opportunity to see what is a general concept
+        and what is specific to a~particular software
+%   \item they gain flexibility to choose optimal solutions for their future work
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Teaching materials}
+
+\begin{itemize}
+ \item file format
+ \begin{itemize}
+  \item originally HTML
+  \item selecting new one
+  \begin{itemize}
+   \item Markdown, missing general standard
+   \item reStructuredText, hot candidate
+  \end{itemize}
+  \item result: HTML (same as delivery format)
+  \item presentation slides in HTML5 (\href{http://lab.hakim.se/reveal-js}{Reveal.js})
+ \end{itemize}
+ \item license: \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA}
+ \item Git (GitHub hosted)
+  {\scriptsize for revision control, collaboration and sharing source code}
+ \item registered in \href{http://www.osgeo.org/educational_content}{OSGeo Educational Content Inventory}
+\end{itemize}
+
+\href{http://geospatial.ncsu.edu/osgeorel/courses.html}%
+  {
+  \begin{minipage}[b]{0.2\textwidth}
+    \begin{center}
+      \includegraphics[height=0.9\textwidth]{./images/edu/osgeorel_courses_qr}\\
+      \tiny \tt geospatial.ncsu.edu/\\osgeorel/courses.html
+    \end{center}
+  \end{minipage}
+  }
+\hfill%
+\href{http://courses.ncsu.edu/gis582/common/grass/data_models.html}{%
+\includegraphics[height=0.2\textwidth]{./images/edu/osgeorel_courses_header}
+\hfill
+\includegraphics[height=0.2\textwidth]{./images/edu/osgeorel_courses_example}%
+}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GRASS GIS advantage for teaching materials maintenance}
+
+\begin{itemize}
+ \item GRASS GIS workflow recorded as commands.
+ \begin{itemize}
+ \item Screenshots are hard to update while text is easy to update.
+ \item GUI dialog filled according to the command.
+ \item Commands can be automatically extracted and tested.
+ \end{itemize}
+\end{itemize}
+
+% \bigskip
+% \bigskip
+\begin{center}
+\colorbox{gray!20}{
+\includegraphics[height=0.5\textheight]{./images/edu/grass_cmd_gui}
+}
+\end{center}
+
+
+% \bigskip
+% \bigskip
+
+\scriptsize
+For ArcGIS we also use just text, but, unlike in GRASS GIS,
+the names in dialogs are not part of the API, so they change more often.
+{\tiny(Course running since 2008.)}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Paper}
+
+\href{http://www.mdpi.com/2220-9964/4/2/942}%
+  {\emph{Integrating Free and Open Source Solutions into Geospatial Science Education}
+  \hfill \footnotesize \color{gray} Open Access}
+
+Vaclav Petras\n{1,\,4},
+Anna Petrasova\n{1,\,4},
+Brendan Harmon\n{2,\,4},
+\mbox{Ross K. Meentemeyer}\n{3,\,4},
+and Helena Mitasova\n{1,\,4}
+
+\medskip
+
+{\tiny
+$^1$Department of Marine, Earth, and Atmospheric Sciences\\
+$^2$Department of Landscape Architecture\\
+$^3$Department of Forestry and Environmental Resources\\
+$^4$\href{http://cnr.ncsu.edu/geospatial/}{Center for Geospatial Analytics}
+and \href{http://geospatial.ncsu.edu/osgeorel/}{NCSU OSGeoREL}
+  -- \href{www.geoforall.org}{part of ICA-OSGeo-ISPRS Network (aka \alert{Geo for All})}\\
+}{\scriptsize
+North Carolina State University, Raleigh, USA\\
+}
+
+\medskip
+
+In: \href{http://www.mdpi.com/journal/ijgi/special_issues/science-applications}%
+{\emph{ISPRS International Journal of Geo-Information}}. 2015.
+% Special Issue "Open Geospatial Science and Applications"
+
+\bigskip
+
+\href{http://dx.doi.org/10.3390/ijgi4020942}%
+  {
+  \begin{minipage}[b]{0.2\textwidth}
+    \begin{center}
+      \includegraphics[height=0.9\textwidth]{./images/edu/paper_qr}\\
+      \tiny \tt doi:10.3390/ijgi4020942
+    \end{center}
+  \end{minipage}
+  }
+\hfill
+\includegraphics[height=0.2\textwidth]{./images/edu/paper_picture}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Standardized Sample Datasets}
+
+\begin{itemize}
+ \item region specific datasets limit sharing of hands-on teaching material
+ \item new version of North Carolina
+ \begin{itemize}
+  \item commonly available data, frequently used in examples
+  \item standardized names such as \textit{elevation}, \textit{streets}, or \textit{lakes}
+  \begin{itemize}
+   \item rather than \textit{srtm}, \textit{dem\_10m}, \textit{streets\_como}
+  \end{itemize}
+ \end{itemize}
+ \item \alert{different datasets should use the same standardized names}
+ \item challenges:
+ \begin{itemize}
+  \item attributes, coordinates, values, extents, resolutions
+ \end{itemize}
+
+\end{itemize}
+
+\smallskip
+
+\begin{columns}[c]
+
+ \column{.45\textwidth}
+\scriptsize
+\begin{verbatim}
+g.region raster=elevation
+r.relief input=elevation output=shade
+\end{verbatim}
+\begin{verbatim}
+d.shade shade=shade color=elevation
+\end{verbatim}
+\vfill\hfill\hfill
+\href{http://grasswiki.osgeo.org/wiki/GRASS_GIS_Standardized_Sample_Datasets}{%
+$\blacktriangleright$ wiki page}
+
+\column{.40\textwidth}
+ \includegraphics[width=\textwidth]{./images/dataset/std_dataset_piemonte_shaded_elevation}%
+\end{columns}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Standardized Sample Dataset: North Carolina, USA}
+
+\begin{center}
+\includegraphics[width=\textwidth]{./images/dataset/std_dataset_nc_stripe.png}
+\end{center}
+
+
+Helena Mitasova\n{1} and Markus Neteler\n{2}, authors of
+\mbox{\href{http://grassbook.org/}{\it Open Source GIS: A GRASS GIS Approach}}
+{\scriptsize (fourth edition in preparation)}
+
+\bigskip
+
+{\scriptsize
+$^1$\href{http://www.meas.ncsu.edu/}%
+{Department of Marine, Earth, and Atmospheric Sciences,
+North Carolina State University, USA}
+
+$^2$\href{http://gis.cri.fmach.it/}%
+% GIS and Remote Sensing Unit
+{Research and Innovation Centre, Fondazione Edmund Mach, Italy}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Standardized Sample Dataset: Czech Republic}
+
+\begin{center}
+\includegraphics[width=\textwidth]{./images/dataset/std_dataset_cz_stripe.png}
+\end{center}
+
+\href{http://gismentors.eu/}{Martin Landa\n{*} and Jachym Cepicky from GISMentors}
+
+\bigskip
+
+$^*$\href{http://geomatics.fsv.cvut.cz/research/osgeorel/}%
+{\scriptsize
+OSGeoREL
+at Czech Technical University in Prague,
+Faculty of Civil Engineering
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Standardized Sample Dataset: Piedmont, Italy}
+% English: Piedmont [ˈpiːdmɒnt] PEED-mont
+% Italian: Piemonte [pjeˈmonte]
+
+\begin{center}
+\includegraphics[width=\textwidth]{./images/dataset/std_dataset_it_stripe.png}
+\end{center}
+
+
+Luca Delucchi and Markus Neteler
+
+{\scriptsize
+\href{http://gis.cri.fmach.it/}{Research and Innovation Centre, Fondazione Edmund Mach, Italy}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Standardized Sample Dataset: Puerto Rico}
+
+\begin{center}
+\includegraphics[width=\textwidth]{./images/dataset/std_dataset_pr_stripe.png}
+\end{center}
+
+Keren Cepero-Perez
+
+{\scriptsize
+\href{http://www.meas.ncsu.edu/}%
+{Department of Marine, Earth, and Atmospheric Sciences,
+North Carolina State University, USA}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Future directions: IPython Notebook}
+
+Used in workshop \emph{How to write a Python GRASS GIS 7 addon}
+\begin{itemize}
+ \item \url{https://github.com/wenzeslaus/python-grass-addon}
+\end{itemize}
+
+
+\begin{block}{Solution}
+\begin{itemize}
+ \item Docker + GRASS GIS + IPython Notebook
+ \item Dockerfile:
+ \begin{itemize}
+  \item \url{https://github.com/wenzeslaus/grass-gis-docker}
+ \end{itemize}
+\end{itemize}
+\end{block}
+
+\centering
+\begin{minipage}{0.6\textwidth}
+\begin{minipage}[b]{0.45\textwidth}
+\includegraphics[width=\textwidth]{./images/logos/ipython}
+\vspace{0.1\textwidth}
+\includegraphics[width=\textwidth]{./images/logos/docker_dark}
+\end{minipage}
+\includegraphics[width=0.3\textwidth]{./images/logos/grass_gis}
+\end{minipage}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{NCSU OSGeoREL workshops and tutorials}
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-intro-workshop/}%
+  {Introduction to GRASS GIS}}
+  \footnotesize
+  Delivered at NCSU
+\end{block}
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/grass-temporal-workshop/}%
+  {Spatio-temporal data handling and visualization in GRASS GIS}}
+  \footnotesize
+  FOSS4G 2014 (Portland) workshop, also delivered at NCSU
+\end{block}
+
+
+\begin{block}{\href{http://ncsu-osgeorel.github.io/erosion-modeling-tutorial/}%
+  {Soil erosion and deposition modeling}}
+  \footnotesize
+  Part of a broader project; workflows for GRASS GIS and ArcGIS
+\end{block}
+
+
+\begin{block}{\href{https://github.com/wenzeslaus/python-grass-addon}%
+  {How to write a Python GRASS GIS 7 addon}}
+  \footnotesize
+  FOSS4G Europe 2015 (Como) workshop, also delivered at NCSU
+\end{block}
+
+\bigskip
+% \footnotesize
+\alert{Workshops are a way how to experiment with what to teach and how.}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Future directions: Educate educators}
+% 
+% \begin{itemize}
+%   \item instructors involvement in community is more important then students in involvement community
+% \end{itemize}
+% 
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Future directions: Tools for open science course}
+
+\begin{overlayarea}{\textwidth}{\textheight}
+
+\begin{itemize}
+ \item Course dedicated to
+ \begin{itemize}
+  \item exploring important role FOSS plays in science
+  \item overview of tools and methods common in FOSS and desperately needed in science
+  \item open access, open data, open standards, open...
+  \item reusability and reproducibility are standard in FOSS
+ \end{itemize}
+\end{itemize}
+
+\smallskip
+
+\centering
+\includegraphics[height=0.5\textheight]{./images/general/open_up_book}%
+\\
+\tiny
+Image credit: \href{https://opensource.com/}{Opensource.com}
+
+
+\end{overlayarea}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Future directions: Software, technologies and platforms}
+
+\begin{itemize}
+ \item \href{http://openstreetmap.org/}{OpenStreetMap},
+    \href{http://teachosm.org}{TeachOSM}, \href{http://learnosm.org}{LearnOSM}
+ \begin{itemize}
+  \item for introduction to geography or GIS
+  \item as an example of community-based project
+  \item as data source in advanced courses
+ \end{itemize}
+ \item \href{http://mapstory.org/}{MapStory} {\scriptsize for student projects}
+ \item \href{http://imincik.github.io/gis-lab/}{GIS.lab} {\scriptsize for easy lab setup}
+ \item \href{http://jupyter.org/}{IPython/Jupyter},
+    \href{https://github.com/jupyter/jupyterhub}{JupyterHub},
+    \href{https://github.com/jupyter/tmpnb}{tmpnb}
+ \item
+    desktop to browser:
+    \href{https://developer.gnome.org/gtk3/stable/gtk-broadway.html}{GTK+ Broadway},
+    \href{https://kanaka.github.io/noVNC/}{noVNC}
+    {\tiny (to get something like \href{https://www.rollapp.com/}{rollApp})}
+ \item web-based tool to explore algorithm behavior in teaching materials
+ \item link teaching materials, standard user manual and the source code
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\begin{block}{Summary}
+ \begin{itemize}
+  \item \href{http://dx.doi.org/10.3390/ijgi4020942}%
+    {improve students' geospatial skills by teaching 2 software packages}
+  \item \href{http://dx.doi.org/10.3390/ijgi4020942}%
+    {use available tools like Git and HTML to create teaching materials}
+  \item \href{http://grasswiki.osgeo.org/wiki/GRASS_GIS_Standardized_Sample_Datasets}%
+    {create a dataset with standardized names for your region}
+ \end{itemize}
+
+\end{block}
+
+\bigskip
+
+\centering
+\href{https://github.com/wenzeslaus/foss-in-geospatial-science-education}{%
+\includegraphics[width=0.2\textwidth]{./images/general/slides_qr}\\%
+\texttt{github.com/wenzeslaus/foss-in-geospatial-science-education}%
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\begin{block}{Advertisement}
+Tangible Landscape Workshop on Sunday, 9am
+\end{block}
+
+\begin{block}{Acknowledgement}
+Scholarship for State of the Map US 2017
+\end{block}
+
+\bigskip
+
+\centering
+\href{https://github.com/wenzeslaus/foss-in-geospatial-science-education}{%
+\includegraphics[width=0.2\textwidth]{./images/general/slides_qr}\\%
+\texttt{github.com/wenzeslaus/foss-in-geospatial-science-education}%
+}
+
+\end{frame}
+
+\end{document}
